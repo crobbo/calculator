@@ -1,0 +1,38 @@
+header {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 60vh;
+    height: 80vh;
+    display: flex;
+    flex-flow: column;
+    background-color: grey;
+    margin: auto;
+    
+}
+
+#display {
+    flex-flow:column nowrap;
+    height:10vh;
+}
+
+.containerRow {
+    display: flex;
+    flex-flow: row;
+    flex-grow: 1;
+    /* justify-content: space-around; */
+}
+
+button {
+   width: 25%;
+
+}
+
+.doubleBtn {
+    
+    flex-grow: 2;
+    
+}
+

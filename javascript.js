@@ -1,7 +1,7 @@
 // calculator operands
 
 const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
+const subtract = (a, b) => a - b;  // ****** These need updating into one function which allows for multiple operands used in same calc
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
@@ -26,11 +26,15 @@ const operate = (operator, num1, num2) => {
     }
 
 };
-// number arrays to be used in calculations 
+// number & operand arrays to be used in calculations 
 
 var numberArrayOne = [];
 var numberArrayTwo = [];
 var numberArrayThree = [];
+
+var operandArrayOne = [];
+var operandArrayTwo = [];
+var operandArrayThree = [];
 
 // inital status of operand which changes when an operand is selected
 
@@ -40,6 +44,25 @@ var operandThree = false;
 
 var currentOperator = '';
 var lastButton = '';
+
+// Adding operands to a an array
+
+const operandControl = () => {
+    switch(true){
+        case numberArrayOne.length > 0:
+            operandArrayOne.push(currentOperator);
+            break;
+        case numberArrayTwo > 0:
+            operandArrayTwo.push(currentOperator);
+            break;
+        case numberArrayThree > 0:
+            operandArrayThree.push(currentOperator);
+            break;
+        default: 
+
+    }
+};
+
 
 
 // setting the status of the operand to true when selected
@@ -80,7 +103,7 @@ const displayFunction = (num) => {
 
 
 // A function which controls when numbers are added to a new array to prevent excessive new arrays
-// which would cause calclator to mis-calculate
+// being created when repeatedly pressing operand buttons
 
 const controlFunction = (operandSymbol) => {
     if(lastButton === '+' || lastButton === '-' || lastButton === '/' || lastButton === '*'){    // errro with this
@@ -97,15 +120,20 @@ const finalCalc = (numberArrayOne, numberArrayTwo, numberArrayThree) => {
 
     switch(true){
         case numberArrayOne.length > 0:
-            return a = Number(numberArrayOne.join(''));
+            a = Number(numberArrayOne.join(''));
         case numberArrayTwo.length > 0:
-            return b = Number(numberArrayTwo.join(''));
+            b = Number(numberArrayTwo.join(''));
         case numberArrayThree.length > 0:
-            return c = Number(numberArrayThree.join(''));
+            c = Number(numberArrayThree.join(''));
         default:
     }
 
-
+    switch(true){
+        case (operandArrayOne.pop() === '+'):   // ****** going to be multiple checks as there may be two or more numbers to calc
+            add();
+            break;
+        case ()
+    }
 
 
 };
@@ -115,7 +143,6 @@ const finalCalc = (numberArrayOne, numberArrayTwo, numberArrayThree) => {
 
 const operandDivide = document.querySelector('.btnEquals');
 operandDivide.addEventListener('click', () => {
-   
     finalCalc();
 });
 
@@ -153,49 +180,59 @@ operandPlus.addEventListener('click', () => {
 const numOne = document.querySelector('.btn1');
 numOne.addEventListener('click', () => {
     displayFunction(1);
+    lastButton = 1;
 });
 
 const numTwo = document.querySelector('.btn2');
 numTwo.addEventListener('click', () => {
     displayFunction(2);
+    lastButton = 2;
 });
 
 const numThree = document.querySelector('.btn3');
 numThree.addEventListener('click', () => {
     displayFunction(3);
+    lastButton = 3;
 });
 
 const numFour = document.querySelector('.btn4');
 numFour.addEventListener('click', () => {
     displayFunction(4);
+    lastButton = 4;
 });
 
 const numFive = document.querySelector('.btn5');
 numFive.addEventListener('click', () => {
     displayFunction(5);
+    lastButton = 5;
 });
 
 const numSix = document.querySelector('.btn6');
 numSix.addEventListener('click', () => {
     displayFunction(6);
+    lastButton = 6;
 });
 
 const numSeven = document.querySelector('.btn7');
 numSeven.addEventListener('click', () => {
     displayFunction(7);
+    lastButton = 7; 
 });
 
 const numEight = document.querySelector('.btn8');
 numEight.addEventListener('click', () => {
     displayFunction(8);
+    lastButton = 8;
 });
 
 const numNine = document.querySelector('.btn9');
 numNine.addEventListener('click', () => {
     displayFunction(9);
+    lastButton = 9;
 });
 
 const numZero = document.querySelector('.btn0');
 numZero.addEventListener('click', () => {
     displayFunction(0);
+    lastButton = 0;
 });

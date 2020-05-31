@@ -1,31 +1,3 @@
-// calculator operands
-
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;  // ****** These need updating into one function which allows for multiple operands used in same calc
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
-
-// operate function
-
-const operate = (operator, num1, num2) => {
-
-    switch (true) {
-        case (operator === '+'):
-            return add(num1, num2);
-            break;
-        case (operator === '-'):
-            return subtract(num1, num2);
-            break;
-
-        case (operator === '*'):
-            return multiply(num1, num2);
-            break;
-        case (operator === '/'):
-            return divide(num1, num2);
-            break;
-    }
-
-};
 // number & operand arrays to be used in calculations 
 
 var numberArrayOne = [];
@@ -45,25 +17,114 @@ var operandThree = false;
 var currentOperator = '';
 var lastButton = '';
 
+var a = '';
+var b = '';
+var finalAnswer = [];
+
+// calculator operands
+
+const add = () => {
+    x = a + b;    
+};
+
+const subtract = () => {
+    x = a - b;
+};
+  
+const multiply = () => { 
+     console.log(a * b);
+    //  finalAnswer.push();
+};
+
+const divide = () => {
+    x = a / b;
+};
+
+const calculate = () => {
+    console.log(operandArrayOne);
+
+    if(finalAnswer.length < 1){
+        switch(true){
+
+            case (operandArrayOne.pop() === '/'):
+                divide();
+                break;
+            case (operandArrayOne.pop() === '-'):
+                subtract();
+                break;
+            case (operandArrayOne.pop() === '*'):
+                multiply();
+                break;
+            case (operandArrayOne.pop() === '+'):
+                add();
+                break;
+            default: 
+            console.log("Switch statement error");
+            
+        }   
+    } else {
+        a = finalanswer;
+        switch(true){
+
+            case ((operandArrayOne.pop()) === '/'):
+                divide();
+                break;
+            case (operandArrayOne.pop() === '-'):
+                subtract();
+                break;
+            case ((operandArrayOne.pop()) === '*'):
+                multiply();
+                break;
+            case (operandArrayOne.pop() === '+'):
+                add();
+                break;
+            default:
+            
+        }   
+    }
+     
+};
+
+// operate function
+
+// const operate = (operator, num1, num2) => {
+
+//     switch (true) {
+//         case (operator === '+'):
+//             return add(num1, num2);
+//             break;
+//         case (operator === '-'):
+//             return subtract(num1, num2);
+//             break;
+
+//         case (operator === '*'):
+//             return multiply(num1, num2);
+//             break;
+//         case (operator === '/'):
+//             return divide(num1, num2);
+//             break;
+//     }
+
+// };
+
 // Adding operands to a an array
 
-const operandControl = () => {
+const operandControl = (opp) => {
     switch(true){
         case numberArrayOne.length > 0:
-            operandArrayOne.push(currentOperator);
+            operandArrayOne.push(opp);
+            console.log(operandArrayOne);
             break;
         case numberArrayTwo > 0:
-            operandArrayTwo.push(currentOperator);
+            operandArrayTwo.push(opp);
             break;
         case numberArrayThree > 0:
-            operandArrayThree.push(currentOperator);
+            operandArrayThree.push(opp);
             break;
         default: 
 
     }
 };
-
-
 
 // setting the status of the operand to true when selected
 
@@ -116,62 +177,57 @@ const controlFunction = (operandSymbol) => {
 
 // Function which takes the number arrays and calculates final answer
 
-const finalCalc = (numberArrayOne, numberArrayTwo, numberArrayThree) => {
+const finalCalc = () => {
 
     switch(true){
         case numberArrayOne.length > 0:
             a = Number(numberArrayOne.join(''));
         case numberArrayTwo.length > 0:
             b = Number(numberArrayTwo.join(''));
-        case numberArrayThree.length > 0:
-            c = Number(numberArrayThree.join(''));
+        break;
         default:
     }
-
-    switch(true){
-        case (operandArrayOne.pop() === '+'):   // ****** going to be multiple checks as there may be two or more numbers to calc
-            add();
-            break;
-        case ()
-    }
-
-
 };
 
 
 // operand buttons 
 
-const operandDivide = document.querySelector('.btnEquals');
-operandDivide.addEventListener('click', () => {
+const operandEquals = document.querySelector('.btnEquals');
+operandEquals.addEventListener('click', () => {
     finalCalc();
+    calculate();
+    console.log(operandArrayOne);
+
 });
 
 const operandDivide = document.querySelector('.btnDivide');
 operandDivide.addEventListener('click', () => {
     currentOperator = '/';
-    controlFunction('/');      
+    controlFunction('/');   
+    operandControl(currentOperator);
+       
 });
-
 
 const operandMultiply = document.querySelector('.btnMultiply');
 operandMultiply.addEventListener('click', () => {
     currentOperator = '*';
     controlFunction('*'); 
+    operandControl(currentOperator);
    
 });
-
 
 const operandMinus = document.querySelector('.btnMinus');
 operandMinus.addEventListener('click', () => {
     currentOperator = '-';
     controlFunction('-'); 
+    operandControl(currentOperator);
 });
-
 
 const operandPlus = document.querySelector('.btnPlus');
 operandPlus.addEventListener('click', () => {
     currentOperator = '+';
     controlFunction('+'); 
+    operandControl(currentOperator);
 });
 
 

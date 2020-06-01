@@ -5,8 +5,6 @@ var numberArrayTwo = [];
 var numberArrayThree = [];
 
 var operandArrayOne = [];
-var operandArrayTwo = [];
-var operandArrayThree = [];
 
 // inital status of operand which changes when an operand is selected
 
@@ -19,111 +17,86 @@ var lastButton = '';
 
 var a = '';
 var b = '';
-var finalAnswer = [];
+var finalAnswer = '';
+var previousAnswer = ''
 
 // calculator operands
 
-const add = () => {
-    x = a + b;    
+const add = (x,y) => {
+    finalAnswer = x + y; 
+    console.log(finalAnswer);   
 };
 
-const subtract = () => {
-    x = a - b;
+const subtract = (x,y) => {
+    finalAnswer = x - y;
+    console.log(finalAnswer);
 };
   
-const multiply = () => { 
-     console.log(a * b);
-    //  finalAnswer.push();
+const multiply = (x,y) => { 
+    finalAnswer = x * y;
+    console.log(finalAnswer);
+    
 };
 
-const divide = () => {
-    x = a / b;
+const divide = (x,y) => {
+    finalAnswer = x / y;
+    console.log(finalAnswer);
 };
 
 const calculate = () => {
     console.log(operandArrayOne);
 
     if(finalAnswer.length < 1){
-        switch(true){
+        switch(operandArrayOne.pop()){
 
-            case (operandArrayOne.pop() === '/'):
-                divide();
+            case '/':
+                divide(a,b);
                 break;
-            case (operandArrayOne.pop() === '-'):
-                subtract();
+            case '-':
+                subtract(a,b);
                 break;
-            case (operandArrayOne.pop() === '*'):
-                multiply();
+            case '*':
+                multiply(a,b);
                 break;
-            case (operandArrayOne.pop() === '+'):
-                add();
+            case '+':
+                add(a,b);
+                break;
+            default: 
+            
+            
+        }   
+    } else {
+        a = finalAnswer;
+        b = Number(numberArrayOne.join(''));
+        switch(operandArrayOne.pop()){
+
+            case '/':
+                divide(a,b);
+                break;
+            case '-':
+                subtract(a,b);
+                break;
+            case '*':
+                multiply(a,b);
+                break;
+            case '+':
+                add(a,b);
                 break;
             default: 
             console.log("Switch statement error");
             
-        }   
-    } else {
-        a = finalanswer;
-        switch(true){
-
-            case ((operandArrayOne.pop()) === '/'):
-                divide();
-                break;
-            case (operandArrayOne.pop() === '-'):
-                subtract();
-                break;
-            case ((operandArrayOne.pop()) === '*'):
-                multiply();
-                break;
-            case (operandArrayOne.pop() === '+'):
-                add();
-                break;
-            default:
-            
-        }   
+        } 
     }
      
 };
 
-// operate function
-
-// const operate = (operator, num1, num2) => {
-
-//     switch (true) {
-//         case (operator === '+'):
-//             return add(num1, num2);
-//             break;
-//         case (operator === '-'):
-//             return subtract(num1, num2);
-//             break;
-
-//         case (operator === '*'):
-//             return multiply(num1, num2);
-//             break;
-//         case (operator === '/'):
-//             return divide(num1, num2);
-//             break;
-//     }
-
-// };
-
-// Adding operands to a an array
+// add numbers to the correct array
 
 const operandControl = (opp) => {
-    switch(true){
-        case numberArrayOne.length > 0:
-            operandArrayOne.push(opp);
-            console.log(operandArrayOne);
-            break;
-        case numberArrayTwo > 0:
-            operandArrayTwo.push(opp);
-            break;
-        case numberArrayThree > 0:
-            operandArrayThree.push(opp);
-            break;
-        default: 
-
-    }
+    if(numberArrayOne.length > 0){
+        operandArrayOne.push(opp);
+        console.log(operandArrayOne);
+    }                
 };
 
 // setting the status of the operand to true when selected
@@ -135,12 +108,42 @@ const operandStatus = () => {
             break;
         case (operandTwo):
             operandTwo = true;
-            break;
-        case (operandThree):
-            operandThree = true;
-            break;
+            break
         default:
 }
+};
+
+// reset operand status after equals sign is pressed
+
+const equalsReset = () => {
+    numberArrayOne = [];
+    numberArrayTwo = [];
+    operandOne = false;
+    operandTwo = false;
+    
+};
+
+// stringing mutiply calculations together 
+
+const stringCalc = () => {
+    console.log("stringCalc being called")
+    switch (true){
+        case finalAnswer > 0 || numberArrayOne.length > 0 && numberArrayTwo > 0:
+            console.log("condition one");
+            finalCalc();
+            calculate();
+            equalsReset();
+        break;
+        // case numberArrayOne.length > 0 && numberArrayTwo > 0:
+        //     console.log("condition two");
+        //     finalCalc();
+        //     calculate();
+        //     equalsReset();
+        // break;         
+        default:
+            console.log("None")
+
+    } 
 };
 
 // Function which adds numbers to an array based on operand status
@@ -149,14 +152,11 @@ const displayFunction = (num) => {
     switch (true) {
         case (!operandOne):
             numberArrayOne.push(num);
-            console.log(numberArrayOne);
+            
             break;
         case (!operandTwo):
             numberArrayTwo.push(num);
-            console.log(numberArrayTwo);
-            break;
-        case (!operandThree):
-            numberArrayThree.push(num);
+            
             break;
         default:
     }
@@ -196,7 +196,7 @@ const operandEquals = document.querySelector('.btnEquals');
 operandEquals.addEventListener('click', () => {
     finalCalc();
     calculate();
-    console.log(operandArrayOne);
+    equalsReset();
 
 });
 
@@ -205,7 +205,8 @@ operandDivide.addEventListener('click', () => {
     currentOperator = '/';
     controlFunction('/');   
     operandControl(currentOperator);
-       
+    stringCalc();       
+    
 });
 
 const operandMultiply = document.querySelector('.btnMultiply');
@@ -213,6 +214,9 @@ operandMultiply.addEventListener('click', () => {
     currentOperator = '*';
     controlFunction('*'); 
     operandControl(currentOperator);
+    console.log(numberArrayOne);
+    console.log(numberArrayTwo);
+    stringCalc();   
    
 });
 
@@ -221,6 +225,7 @@ operandMinus.addEventListener('click', () => {
     currentOperator = '-';
     controlFunction('-'); 
     operandControl(currentOperator);
+    stringCalc();   
 });
 
 const operandPlus = document.querySelector('.btnPlus');
@@ -228,6 +233,7 @@ operandPlus.addEventListener('click', () => {
     currentOperator = '+';
     controlFunction('+'); 
     operandControl(currentOperator);
+    stringCalc();   
 });
 
 
@@ -237,6 +243,7 @@ const numOne = document.querySelector('.btn1');
 numOne.addEventListener('click', () => {
     displayFunction(1);
     lastButton = 1;
+    
 });
 
 const numTwo = document.querySelector('.btn2');

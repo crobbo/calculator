@@ -5,6 +5,7 @@ var numberArrayTwo = [];
 var numberArrayThree = [];
 
 var operandArrayOne = [];
+var operandArrayTwo = [];
 
 // inital status of operand which changes when an operand is selected
 
@@ -45,9 +46,30 @@ const divide = (x,y) => {
 
 const calculate = () => {
     console.log(operandArrayOne);
+    if (operandArrayOne.length < 2){
+        console.log("operandArrayOne.length < 2")
+        switch(operandArrayOne[0]){   
 
-    if(finalAnswer.length < 1){
-        switch(operandArrayOne.pop()){
+            case '/':
+                divide(a,b);
+                break;
+            case '-':
+                subtract(a,b);
+                break;
+            case '*':
+                multiply(a,b);
+                break;
+            case '+':
+                add(a,b);
+                break;
+            default: 
+            
+            
+        }   
+
+    } else if(finalAnswer.length < 1){
+        console.log("finalAnswer.length < 1");
+        switch(operandArrayOne[operandArrayOne.length - 2]){     //changed operandArrayOne.pop())
 
             case '/':
                 divide(a,b);
@@ -66,9 +88,10 @@ const calculate = () => {
             
         }   
     } else {
+        console.log("Else Statement reached");
         a = finalAnswer;
         b = Number(numberArrayOne.join(''));
-        switch(operandArrayOne.pop()){
+        switch(operandArrayOne[operandArrayOne.length - 2]){
 
             case '/':
                 divide(a,b);
@@ -89,6 +112,15 @@ const calculate = () => {
     }
      
 };
+
+// adds last buttons to an array but only they have not been pressed. recongnses if opernad
+// has already been pressed
+
+
+// const lastButtonControl = (btn) => {
+//     if()
+
+// };
 
 // add numbers to the correct array
 
@@ -128,20 +160,14 @@ const equalsReset = () => {
 const stringCalc = () => {
     console.log("stringCalc being called")
     switch (true){
-        case finalAnswer > 0 || numberArrayOne.length > 0 && numberArrayTwo > 0:
+        case (finalAnswer > 0 || finalAnswer < 0) ||(numberArrayOne.length > 0 && numberArrayTwo.length > 0):
             console.log("condition one");
             finalCalc();
             calculate();
             equalsReset();
-        break;
-        // case numberArrayOne.length > 0 && numberArrayTwo > 0:
-        //     console.log("condition two");
-        //     finalCalc();
-        //     calculate();
-        //     equalsReset();
-        // break;         
+        break;        
         default:
-            console.log("None")
+            console.log("None")                                 
 
     } 
 };
@@ -197,6 +223,7 @@ operandEquals.addEventListener('click', () => {
     finalCalc();
     calculate();
     equalsReset();
+    operandArrayOne.push('=');
 
 });
 
@@ -205,7 +232,8 @@ operandDivide.addEventListener('click', () => {
     currentOperator = '/';
     controlFunction('/');   
     operandControl(currentOperator);
-    stringCalc();       
+    stringCalc();   
+       
     
 });
 

@@ -50,11 +50,35 @@ const calculate = () => {
         default:         
     }   
 
-    a = '';
+    a = lastCalculated[lastCalculated.length -1];
     b = '';
     numberArrayOne = [];
     numberArrayTwo = [];
-    operandArrayOne = [];
+    lastButtonArray = [];
+};
+
+const stringCalculate = () => {
+    switch(operandArrayOne[operandArrayOne.length - 2]){   
+
+        case '/':
+            divide(a,b);
+            break;
+        case '-':
+            subtract(a,b);
+            break;
+        case '*':
+            multiply(a,b);
+            break;
+        case '+':
+            add(a,b);
+            break;
+        default:         
+    }   
+
+    a = lastCalculated[lastCalculated.length -1];
+    b = '';
+    numberArrayOne = [];
+    numberArrayTwo = [];
     lastButtonArray = [];
 };
 
@@ -63,7 +87,8 @@ const calculate = () => {
 const addNumArray = (num) => {
     if(numberArrayTwo > 0){
         numberArrayTwo.push(num);
-    } else if(lastButtonArray[lastButtonArray.length - 1] === '/' || lastButtonArray[lastButtonArray.length - 1] === '*' || lastButtonArray[lastButtonArray.length - 1] === '-' || lastButtonArray[lastButtonArray.length - 1] === '+'){
+    } else if(lastButtonArray[lastButtonArray.length - 1] === '/' || lastButtonArray[lastButtonArray.length - 1] === '*' 
+    || lastButtonArray[lastButtonArray.length - 1] === '-' || lastButtonArray[lastButtonArray.length - 1] === '+'){
         numberArrayTwo.push(num);
     } else {
         numberArrayOne.push(num);
@@ -85,29 +110,73 @@ const addButtonArray = (btn) => {
 // function which controls and checks the behaviour of an operand click. 
 
 const operandControl = () => {
-    if(numberArrayOne.length > 0 && numberArrayTwo.length > 0){
-        a = Number(numberArrayOne.join(''));
-        b = Number(numberArrayTwo.join(''));
-        calculate();
-    } else if(lastCalculated.length > 0 && numberArrayOne.length > 0){
-        a = lastCalculated[lastCalculated.length - 1];
-        b = Number(numberArrayOne.join(''));
-        calculate();      
-    } 
-    
-    else {
-        console.log('a & b values have not been set')
+    switch(true){
+        case numberArrayOne.length > 0 && numberArrayTwo.length > 0 && operandArrayOne[operandArrayOne.length - 2]
+         === operandArrayOne[operandArrayOne.length - 1]: 
+            console.log('CASE 1!');
+            a = Number(numberArrayOne.join(''));
+            b = Number(numberArrayTwo.join(''));
+            calculate();
+            break;
+        case numberArrayOne.length > 0 && numberArrayTwo.length > 0 && operandArrayOne[operandArrayOne.length - 2]
+        !== operandArrayOne[operandArrayOne.length - 1]:
+            a = Number(numberArrayOne.join(''));
+            b = Number(numberArrayTwo.join(''));
+            stringCalculate();
+            break;         
+        case (operandArrayOne[operandArrayOne.length - 2] !== operandArrayOne[operandArrayOne.length - 1] 
+            && lastCalculated.length > 0 && numberArrayOne.length > 0):
+            console.log('CASE 2!');
+            b = Number(numberArrayOne.join(''));
+            console.log('B = ' + b);
+            console.log('A = ' + a);
+            stringCalculate();
+            break;
+        case ((operandArrayOne[operandArrayOne.length - 2] === operandArrayOne[operandArrayOne.length - 1]) 
+            && (lastCalculated.length > 0) && (numberArrayOne.length > 0)):
+            console.log('CASE 3');
+            b = Number(numberArrayOne.join(''));
+            console.log(b);
+            console.log(a);
+            calculate();
+            break;
+        case (operandArrayOne[operandArrayOne.length - 2] !== operandArrayOne[operandArrayOne.length - 1] 
+            && lastCalculated.length > 0 && numberArrayTwo.length > 0):
+            console.log("CASE 4")
+            b = Number(numberArrayTwo.join(''))
+            stringCalculate();
+            break;
+        case (operandArrayOne[operandArrayOne.length - 2] === operandArrayOne[operandArrayOne.length - 1] 
+            && lastCalculated.length > 0 && numberArrayTwo.length > 0):
+            console.log("CASE 4")
+            b = Number(numberArrayTwo.join(''))
+            calculate();
+            break;
+        default: 
+            console.log('Do nothing!');
+            break;
+
     }
 };
+
 
 // operand buttons 
 
 const operandEquals = document.querySelector('.btnEquals');
 operandEquals.addEventListener('click', () => {
-    // addOperandArray('=');
     addButtonArray('='); 
-    operandControl();
-       
+    if (operandArrayOne.length === 1){
+        console.log("Two nums");
+        a = Number(numberArrayOne.join(''));
+        b = Number(numberArrayTwo.join(''));
+        calculate();
+        
+    } else {
+        console.log("One num")
+        b = Number(numberArrayOne.join(''));
+        calculate(); 
+    }
+     
 });
 
 const operandDivide = document.querySelector('.btnDivide');

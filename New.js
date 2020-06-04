@@ -88,7 +88,7 @@ const addNumArray = (num) => {
     if(numberArrayTwo > 0){
         numberArrayTwo.push(num);
     } else if(lastButtonArray[lastButtonArray.length - 1] === '/' || lastButtonArray[lastButtonArray.length - 1] === '*' 
-    || lastButtonArray[lastButtonArray.length - 1] === '-' || lastButtonArray[lastButtonArray.length - 1] === '+'){
+    || lastButtonArray[lastButtonArray.length - 1] === '-' || lastButtonArray[lastButtonArray.length - 1] === '+' && numberArrayOne.length > 0){
         numberArrayTwo.push(num);
     } else {
         numberArrayOne.push(num);

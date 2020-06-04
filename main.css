@@ -10,13 +10,31 @@ header {
     flex-flow: column;
     background-color: grey;
     margin: auto;
+    box-shadow: 0px 0px 36px 3px rgba(100,100,100,0.75);
+    border-radius: 1.75em;
     
 }
 
 #display {
     flex-flow:column nowrap;
     height:10vh;
+    justify-content: center;
+    text-align: center;
+    background-color: white;
+    border-radius: 1.75em 1.75em 0 0;
 }
+
+.screen {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin: 20px;
+    border-style: solid;
+    border-width: 2px;
+    width: 80%;
+    background-color: ;
+}
+
 
 .containerRow {
     display: flex;
@@ -32,5 +50,15 @@ button {
 
 .btn0 {
     flex-grow: 2;
+}
+
+.display-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 45px;
+    font-weight: 600;
+    color: black;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    
 }
 

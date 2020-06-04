@@ -1,17 +1,41 @@
+body {
+    /* background: rgb(0,223,226);
+    background: linear-gradient(90deg, rgba(0,223,226,0.9822303921568627) 0%, rgba(227,245,250,0.5844712885154062) 0%);  */
+    background: rgb(245,245,245);
+    background: linear-gradient(90deg, rgba(245,245,245,1) 18%, rgba(213,213,213,1) 86%);
+}
+
 header {
     display: flex;
+    font-family: 'Dosis', sans-serif;;
+    font-size:0.75em;
+    font-style: italic;
+    flex-flow: column nowrap;
     justify-content: center;
+    text-align: center;
+    margin-top: 2em;
+}
+
+h1 {
+    font-family: 'Dosis', sans-serif;
+    font-weight: 200;
+    font-style: italic;
+}
+
+p {
+    font-size: 1.25em;
 }
 
 .container {
-    width: 60vh;
-    height: 80vh;
+    width: 55vh;
+    height: 70vh;
     display: flex;
     flex-flow: column;
-    background-color: grey;
+    /* background-color: blue; */
     margin: auto;
     box-shadow: 0px 0px 36px 3px rgba(100,100,100,0.75);
     border-radius: 1.75em;
+    margin-top: 3em;
     
 }
 
@@ -22,43 +46,68 @@ header {
     text-align: center;
     background-color: white;
     border-radius: 1.75em 1.75em 0 0;
+    background-color:white;
 }
-
-.screen {
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    margin: 20px;
-    border-style: solid;
-    border-width: 2px;
-    width: 80%;
-    background-color: ;
-}
-
 
 .containerRow {
     display: flex;
     flex-flow: row;
     flex-grow: 1;
+    background-color: none;
+    /* border-radius: 1.75em; */
     /* justify-content: space-around; */
 }
 
 button {
    width: 25%;
-
+   border: 0;
+ background: none;
+ box-shadow: none;
+ border-radius: 0px;
+ font-family: 'Dosis', sans-serif;
+ font-size: 2em;
+ color: slategray;
+ font-weight: 600;
 }
+
+button:hover {
+ border: 0;
+ background: #88FADF;
+ box-shadow: none;
+ border-radius: 0px;
+ color:white;
+}
+
 
 .btn0 {
     flex-grow: 2;
+    border-radius: 0em 0em 0em 1em;
+}
+
+.btn0:hover {
+    border-radius: 0em 0em 0em 0.9em;
+}
+
+.num {
+    background: white;
+}
+
+.btnEquals {
+    border-radius: 0em 0em 0.9em 0em;
+}
+
+.btnEquals:hover {
+    border-radius: 0em 0em 0.9em 0em;
 }
 
 .display-text {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 45px;
-    font-weight: 600;
-    color: black;
+    font-family: 'Dosis', sans-serif;
+    font-size: 3em;
+    letter-spacing: 0.15em;
+    font-weight: 550;
+    color: darkcyan;
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 30px;   
     
 }
 

@@ -327,3 +327,4 @@ numZero.addEventListener('click', () => {
     displayFunction(0);
     lastButton = 0;
 });
+
